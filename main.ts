@@ -226,6 +226,7 @@ class FlomoAPI {
 	async sendRequest(text: string, successMsg?: string) {
 		const imageList = this.extractImages(text);
 		text = this.removeImageNotations(text);
+		text = this.removeMarkdown(text);
 
 		const xhr = new XMLHttpRequest();
 		xhr.open("POST", this.plugin.settings.flomoAPI);
@@ -257,6 +258,11 @@ class FlomoAPI {
 
 	removeImageNotations(text: string) {
 		return text.replace(/!\[\[(.*?)\]\]/g, '');
+	}
+
+	removeMarkdown(text: string) {
+		const content = text.replace(/\s*-\s/g, '\n');
+		return content;
 	}
 
 	handleResponse(xhr: XMLHttpRequest, successMsg?: string)  {
