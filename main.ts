@@ -262,7 +262,7 @@ class FlomoAPI {
 
 	removeMarkdown(text: string) {
 		const content = text.replace(/\s*-\s/g, '\n');
-		return content;
+		return content.replace(/(\[\[)|(\]\])/g, '');
 	}
 
 	handleResponse(xhr: XMLHttpRequest, successMsg?: string)  {
